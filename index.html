@@ -1729,6 +1729,91 @@
     <span id="toast-message">Download starting…</span>
   </div>
 
+  <!-- ============================================
+       CUSTOM ANALYTICS — SUPABASE
+       Sends events to your own database in parallel with GA4
+       ============================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ---- CONFIG ----
+      var SUPABASE_URL = 'https://oqvatzdgxnuwxttqwls.supabase.co';
+      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdmF0emRneG51d3h4dHRxd2xzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjAxNjYsImV4cCI6MjEwNDYzNjE2Nn0.TwZnzS-4aKTTeivQhSTxj5SAX03eRCmbw1G6kYVV6rA';
+      // ----------------
+
+      // Generate or retrieve a stable visitor ID (per browser)
+      function getVisitorId() {
+        try {
+          var id = localStorage.getItem('bw_visitor_id');
+          if (!id) {
+            id = 'v_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now();
+            localStorage.setItem('bw_visitor_id', id);
+          }
+          return id;
+        } catch (e) {
+          return 'anon';
+        }
+      }
+
+      // Send event to Supabase
+      function sendEvent(eventName, extra) {
+        var payload = {
+          event_name: eventName,
+          page: window.location.pathname,
+          referrer: document.referrer || 'direct',
+          user_agent: navigator.userAgent,
+          visitor_id: getVisitorId()
+        };
+
+        if (extra) {
+          Object.keys(extra).forEach(function (k) {
+            payload[k] = extra[k];
+          });
+        }
+
+        fetch(SUPABASE_URL + '/rest/v1/events', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(function (err) {
+          // Silent fail — never break the page
+          console.warn('Custom analytics error:', err);
+        });
+      }
+
+      // Expose globally for reuse
+      window.bwTrack = sendEvent;
+
+      // Fire page view
+      sendEvent('page_view');
+
+      // Auto-hook download buttons
+      document.addEventListener('click', function (e) {
+        var target = e.target.closest('.download-apk');
+        if (target) {
+          sendEvent('apk_download');
+        }
+
+        var feedback = e.target.closest('.feedback-link');
+        if (feedback) {
+          sendEvent('feedback_form_open');
+        }
+
+        var banner = e.target.closest('a[href="#feedback"]');
+        if (banner) {
+          sendEvent('feedback_section_click');
+        }
+      });
+    })();
+  </script>
+
   <!-- ============ SCRIPTS ============ -->
   <script>
     (function () {
@@ -1828,7 +1913,7 @@
           var url = this.getAttribute('href');
           var filename = this.getAttribute('download') || 'BudgetWizer-v1.1-beta.apk';
 
-          // Fire GA4 event — shows in Realtime and Events reports
+          // Fire GA4 event
           trackEvent('apk_download', {
             event_category: 'engagement',
             event_label: 'BudgetWizer v1.1 Beta',
@@ -1866,11 +1951,15 @@
               self.innerHTML = '<i class="fas fa-circle-check"></i><span>Downloaded!</span>';
               showToast('BudgetWizer beta downloaded successfully!', false);
 
-              // Second GA4 event for completed download
               trackEvent('apk_download_complete', {
                 event_category: 'engagement',
                 event_label: 'BudgetWizer v1.1 Beta'
               });
+
+              // Also log to Supabase
+              if (typeof window.bwTrack === 'function') {
+                window.bwTrack('apk_download_complete');
+              }
 
               setTimeout(function () {
                 self.classList.remove('downloaded');
