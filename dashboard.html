@@ -259,7 +259,6 @@
   </div>
 
   <script>
-    // ============ CONFIG ============
     const SUPABASE_URL = 'https://oqvatzdgxnuwxxttqwls.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdmF0emRneG51d3h4dHRxd2xzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjAxNjYsImV4cCI6MjEwNDYzNjE2Nn0.TwZnzS-4aKTTeivQhSTxj5SAX03eRCmbw1G6kYVV6rA';
 
@@ -277,12 +276,11 @@
 
       try {
         const res = await fetch(
-          `${SUPABASE_URL}/rest/v1/events?select=*&order=created_at.desc&limit=500`,
+          `${SUPABASE_URL}/rest/v1/events?select=*&order=created_at.desc&limit=1000`,
           { headers }
         );
 
         if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-
         const events = await res.json();
         render(events);
 
@@ -290,17 +288,12 @@
         document.getElementById('content').style.display = 'block';
         document.getElementById('updated').textContent =
           'Last updated: ' + new Date().toLocaleTimeString() + ' · ' + events.length + ' events loaded';
-
       } catch (err) {
         console.error(err);
         document.getElementById('loading').innerHTML = `
           <i class="fas fa-exclamation-triangle" style="color:#FF6B6B;"></i>
           <strong style="color:#FF6B6B;display:block;margin-bottom:8px;">Could not load data</strong>
-          <span style="color:#6E7F9B;font-size:0.85rem;">${err.message}</span><br><br>
-          <span style="color:#6E7F9B;font-size:0.8rem;">
-            Check that your events table exists, has the right columns,<br>
-            and allows anonymous reads (RLS policies).
-          </span>
+          <span style="color:#6E7F9B;font-size:0.85rem;">${err.message}</span>
         `;
       } finally {
         btn.disabled = false;
@@ -314,69 +307,81 @@
       renderVisitors(events);
     }
 
+    // ============================================
+    // STATS — with unique visitor de-duplication
+    // ============================================
     function renderStats(events) {
-      const now = Date.now();
-      const dayAgo = now - (24 * 60 * 60 * 1000);
-
+      const dayAgo = Date.now() - (24 * 60 * 60 * 1000);
       const last24h = events.filter(e => new Date(e.created_at).getTime() > dayAgo);
-      const total = events.length;
-      const today = last24h.length;
 
-      const downloads = events.filter(e => e.event_name === 'apk_download').length;
-      const downloadsComplete = events.filter(e => e.event_name === 'apk_download_complete').length;
-      const feedbackOpens = events.filter(e => e.event_name === 'feedback_form_open').length;
-      const pageViews = events.filter(e => e.event_name === 'page_view').length;
+      // Deduplicated counts (unique sessions) vs raw counts
+      const downloadsAll = events.filter(e => e.event_name === 'apk_download');
+      const downloads24h = last24h.filter(e => e.event_name === 'apk_download');
 
-      const uniqueVisitors = new Set(events.map(e => e.visitor_id).filter(Boolean)).size;
-      const uniqueToday = new Set(last24h.map(e => e.visitor_id).filter(Boolean)).size;
+      const downloadsCompleteAll = events.filter(e => e.event_name === 'apk_download_complete');
+      const feedbackOpens = events.filter(e => e.event_name === 'feedback_form_open');
+      const pageViews = events.filter(e => e.event_name === 'page_view');
+
+      // Unique visitors — distinct visitor_id
+      const allVisitorIds = events.map(e => e.visitor_id).filter(Boolean);
+      const uniqueVisitors = new Set(allVisitorIds).size;
+
+      const visitorIds24h = last24h.map(e => e.visitor_id).filter(Boolean);
+      const uniqueVisitors24h = new Set(visitorIds24h).size;
+
+      // Unique downloaders — distinct visitor_id who clicked download
+      const downloaderIds = downloadsAll.map(e => e.visitor_id).filter(Boolean);
+      const uniqueDownloaders = new Set(downloaderIds).size;
+
+      const downloaderIds24h = downloads24h.map(e => e.visitor_id).filter(Boolean);
+      const uniqueDownloaders24h = new Set(downloaderIds24h).size;
 
       document.getElementById('statsGrid').innerHTML = `
         <div class="card">
           <div class="icon"><i class="fas fa-download"></i></div>
-          <div class="label">APK Downloads</div>
-          <div class="value grad">${downloads}</div>
+          <div class="label">APK Downloads (Clicks)</div>
+          <div class="value grad">${downloadsAll.length}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-user-check"></i></div>
+          <div class="label">Unique Downloaders</div>
+          <div class="value grad">${uniqueDownloaders}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-check-circle"></i></div>
+          <div class="label">Completed Downloads</div>
+          <div class="value">${downloadsCompleteAll.length}</div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-users"></i></div>
-          <div class="label">Unique Visitors</div>
+          <div class="label">Unique Visitors (All)</div>
           <div class="value">${uniqueVisitors}</div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-eye"></i></div>
           <div class="label">Page Views</div>
-          <div class="value">${pageViews}</div>
+          <div class="value">${pageViews.length}</div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-comment-dots"></i></div>
           <div class="label">Feedback Opens</div>
-          <div class="value">${feedbackOpens}</div>
+          <div class="value">${feedbackOpens.length}</div>
         </div>
         <div class="card">
-          <div class="icon"><i class="fas fa-bolt"></i></div>
-          <div class="label">Last 24h Events</div>
-          <div class="value">${today}</div>
+          <div class="icon"><i class="fas fa-clock"></i></div>
+          <div class="label">Last 24h Downloads</div>
+          <div class="value">${downloads24h.length} <span style="font-size:0.9rem;color:#6E7F9B;">(${uniqueDownloaders24h} unique)</span></div>
         </div>
         <div class="card">
-          <div class="icon"><i class="fas fa-user-check"></i></div>
-          <div class="label">Visitors 24h</div>
-          <div class="value">${uniqueToday}</div>
-        </div>
-        <div class="card">
-          <div class="icon"><i class="fas fa-check-circle"></i></div>
-          <div class="label">Completed DLs</div>
-          <div class="value">${downloadsComplete}</div>
-        </div>
-        <div class="card">
-          <div class="icon"><i class="fas fa-list"></i></div>
-          <div class="label">Total Events</div>
-          <div class="value">${total}</div>
+          <div class="icon"><i class="fas fa-user-clock"></i></div>
+          <div class="label">Visitors Last 24h</div>
+          <div class="value">${uniqueVisitors24h}</div>
         </div>
       `;
     }
 
     function renderEvents(events) {
       const tbody = document.querySelector('#eventsTable tbody');
-
       if (!events.length) {
         tbody.innerHTML = `<tr><td colspan="4"><div class="empty">
           <i class="fas fa-inbox"></i>
@@ -405,20 +410,21 @@
       const map = {};
       events.forEach(e => {
         const v = e.visitor_id || 'unknown';
-        if (!map[v]) map[v] = { count: 0, first: e.created_at, last: e.created_at };
+        if (!map[v]) map[v] = { count: 0, downloads: 0, first: e.created_at, last: e.created_at };
         map[v].count++;
+        if (e.event_name === 'apk_download') map[v].downloads++;
         if (e.created_at < map[v].first) map[v].first = e.created_at;
         if (e.created_at > map[v].last) map[v].last = e.created_at;
       });
 
       const rows = Object.entries(map)
         .sort((a, b) => b[1].count - a[1].count)
-        .slice(0, 20);
+        .slice(0, 30);
 
       const tbody = document.querySelector('#visitorsTable tbody');
 
       if (!rows.length) {
-        tbody.innerHTML = `<tr><td colspan="4"><div class="empty">
+        tbody.innerHTML = `<tr><td colspan="5"><div class="empty">
           <i class="fas fa-user-slash"></i>
           <strong>No visitors yet</strong>
         </div></td></tr>`;
@@ -429,6 +435,7 @@
         <tr>
           <td class="mono">${id}</td>
           <td><strong>${d.count}</strong></td>
+          <td>${d.downloads > 0 ? '<span class="pill download">' + d.downloads + ' DL</span>' : '-'}</td>
           <td class="mono">${new Date(d.first).toLocaleTimeString()}</td>
           <td class="mono">${new Date(d.last).toLocaleTimeString()}</td>
         </tr>
