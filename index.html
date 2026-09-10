@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="BudgetWizer — PLAN • TRACK • GROW. A modern, offline-first personal finance & budgeting Android app with a built-in AI financial advisor.">
+  <meta name="description" content="BudgetWizer — PLAN • TRACK • GROW. A modern, offline-first personal finance & budgeting Android app with a built-in AI financial advisor. Try the v1.1 beta now.">
   <meta name="theme-color" content="#060B19">
   <meta property="og:title" content="BudgetWizer — PLAN • TRACK • GROW">
   <meta property="og:description" content="Master your money with AI-driven clarity. Offline-first budgeting, analytics, and future wealth projections.">
   <meta property="og:type" content="website">
-  <title>BudgetWizer · PLAN · TRACK · GROW</title>
+  <title>BudgetWizer · PLAN · TRACK · GROW · v1.1 Beta</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -103,6 +103,38 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
+    }
+
+    /* ============================================
+       BETA BANNER
+       ============================================ */
+    .beta-banner {
+      background: linear-gradient(90deg, rgba(0, 163, 255, 0.18), rgba(0, 229, 163, 0.18));
+      border-bottom: 1px solid rgba(0, 229, 163, 0.3);
+      padding: 10px 0;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #C0E8FF;
+      letter-spacing: 0.2px;
+    }
+
+    .beta-banner strong {
+      color: var(--emerald);
+      font-weight: 800;
+    }
+
+    .beta-banner a {
+      color: var(--emerald);
+      text-decoration: underline;
+      text-decoration-color: rgba(0, 229, 163, 0.5);
+      text-underline-offset: 3px;
+      transition: var(--transition);
+    }
+
+    .beta-banner a:hover {
+      text-decoration-color: var(--emerald);
+      color: #ffffff;
     }
 
     /* ============================================
@@ -843,7 +875,7 @@
       border-radius: var(--radius-lg);
       padding: 34px 36px;
       border: 1px solid var(--border);
-      margin: 50px 0 80px;
+      margin: 50px 0 60px;
     }
 
     .build-item .label {
@@ -870,6 +902,121 @@
       color: var(--emerald);
       margin-top: 3px;
       flex-shrink: 0;
+    }
+
+    /* ============================================
+       FEEDBACK SECTION
+       ============================================ */
+    .feedback-section {
+      padding: 40px 0 60px;
+    }
+
+    .feedback-card {
+      background: linear-gradient(135deg, #0E172C 0%, #0A1428 100%);
+      border-radius: var(--radius-xl);
+      padding: 52px 48px;
+      border: 1px solid rgba(0, 229, 163, 0.28);
+      box-shadow: 0 0 60px rgba(0, 229, 163, 0.08);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .feedback-card::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -10%;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(0, 163, 255, 0.14) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .feedback-card::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      right: -10%;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(0, 229, 163, 0.14) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .feedback-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .feedback-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      background: rgba(0, 229, 163, 0.14);
+      border: 1px solid rgba(0, 229, 163, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--emerald);
+      margin: 0 auto 22px;
+      box-shadow: 0 0 24px rgba(0, 229, 163, 0.25);
+    }
+
+    .feedback-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+
+    .feedback-title .grad {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .feedback-desc {
+      color: var(--text-secondary);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .feedback-perks {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 24px;
+      margin-bottom: 32px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .feedback-perks span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .feedback-perks i {
+      color: var(--emerald);
+    }
+
+    .feedback-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
     }
 
     /* ============================================
@@ -1108,6 +1255,18 @@
         gap: 22px;
       }
 
+      .feedback-card {
+        padding: 40px 26px;
+        border-radius: 28px;
+      }
+
+      .feedback-icon {
+        width: 58px;
+        height: 58px;
+        font-size: 24px;
+        border-radius: 18px;
+      }
+
       .footer {
         padding: 40px 0 30px;
       }
@@ -1119,6 +1278,11 @@
         width: calc(100% - 32px);
         max-width: 400px;
         justify-content: center;
+      }
+
+      .beta-banner {
+        font-size: 0.78rem;
+        padding: 8px 12px;
       }
     }
 
@@ -1190,6 +1354,19 @@
         padding: 7px 13px;
       }
 
+      .feedback-actions {
+        flex-direction: column;
+      }
+
+      .feedback-actions .btn {
+        width: 100%;
+      }
+
+      .feedback-perks {
+        flex-direction: column;
+        gap: 10px;
+      }
+
       .footer-links {
         gap: 14px;
       }
@@ -1214,7 +1391,7 @@
        PRINT STYLES
        ============================================ */
     @media print {
-      .navbar, .btn, .hero-visual, .ai-banner .btn, .toast {
+      .navbar, .btn, .hero-visual, .ai-banner .btn, .toast, .beta-banner {
         display: none;
       }
 
@@ -1223,7 +1400,7 @@
         color: #000;
       }
 
-      .feature-card, .tech-item, .build-info {
+      .feature-card, .tech-item, .build-info, .feedback-card {
         border: 1px solid #ccc;
         background: #fff;
       }
@@ -1231,6 +1408,11 @@
   </style>
 </head>
 <body>
+
+  <!-- ============ BETA BANNER ============ -->
+  <div class="beta-banner">
+    🚀 <strong>v1.1 Beta is live!</strong> Help shape BudgetWizer — <a href="#feedback">share your feedback</a> after testing.
+  </div>
 
   <!-- ============ NAVBAR ============ -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
@@ -1240,11 +1422,11 @@
         <div class="logo-text">Budget<span>Wizer</span></div>
       </a>
       <div class="nav-right">
-        <span class="badge"><span class="dot"></span> v1.1 Stable</span>
-        <a href="https://raw.githubusercontent.com/Maphuti-gif/BudgetWizer_Official_Website/main/app-debug.apk"
+        <span class="badge"><span class="dot"></span> v1.1 Beta</span>
+        <a href="https://github.com/Maphuti-gif/BudgetWizer_Official_Website/releases/download/v1.1-beta/app-debug.apk"
            class="btn btn-outline btn-sm download-apk"
-           download="BudgetWizer-v1.1.apk"
-           aria-label="Download the BudgetWizer APK">
+           download="BudgetWizer-v1.1-beta.apk"
+           aria-label="Download the BudgetWizer beta APK">
           <i class="fas fa-download" aria-hidden="true"></i>
           <span>Download APK</span>
         </a>
@@ -1265,11 +1447,11 @@
         a built-in AI financial advisor.
       </p>
       <div class="hero-actions">
-        <a href="https://raw.githubusercontent.com/Maphuti-gif/BudgetWizer_Official_Website/main/app-debug.apk"
+        <a href="https://github.com/Maphuti-gif/BudgetWizer_Official_Website/releases/download/v1.1-beta/app-debug.apk"
            class="btn btn-primary btn-lg download-apk"
-           download="BudgetWizer-v1.1.apk">
+           download="BudgetWizer-v1.1-beta.apk">
           <i class="fas fa-download" aria-hidden="true"></i>
-          Download v1.1 APK
+          Download v1.1 Beta
         </a>
         <a href="#features" class="btn btn-outline btn-lg">
           <i class="fas fa-circle-play" aria-hidden="true"></i>
@@ -1404,11 +1586,11 @@
           <span class="chip"><i class="fas fa-scissors" aria-hidden="true"></i> Where to cut back?</span>
         </div>
       </div>
-      <a href="https://raw.githubusercontent.com/Maphuti-gif/BudgetWizer_Official_Website/main/app-debug.apk"
+      <a href="https://github.com/Maphuti-gif/BudgetWizer_Official_Website/releases/download/v1.1-beta/app-debug.apk"
          class="btn btn-primary btn-lg download-apk"
-         download="BudgetWizer-v1.1.apk">
+         download="BudgetWizer-v1.1-beta.apk">
         <i class="fas fa-download" aria-hidden="true"></i>
-        Get the App
+        Get the Beta
       </a>
     </div>
   </div>
@@ -1440,7 +1622,7 @@
       </div>
       <div class="build-item">
         <div class="label">Version</div>
-        <div class="value"><i class="fas fa-tag" aria-hidden="true"></i> 1.1 (code 2)</div>
+        <div class="value"><i class="fas fa-tag" aria-hidden="true"></i> 1.1 Beta (code 2)</div>
       </div>
       <div class="build-item">
         <div class="label">SDK</div>
@@ -1448,10 +1630,48 @@
       </div>
       <div class="build-item">
         <div class="label">Output</div>
-        <div class="value"><i class="fas fa-file-zipper" aria-hidden="true"></i> app-debug.apk</div>
+        <div class="value"><i class="fas fa-file-zipper" aria-hidden="true"></i> app-debug.apk · 16.9 MB</div>
       </div>
     </div>
   </div>
+
+  <!-- ============ FEEDBACK SECTION ============ -->
+  <section class="feedback-section" id="feedback">
+    <div class="container">
+      <div class="feedback-card reveal">
+        <div class="feedback-content">
+          <div class="feedback-icon">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+          </div>
+          <h2 class="feedback-title">Tried the beta? <span class="grad">Tell me what you think.</span></h2>
+          <p class="feedback-desc">
+            Your honest feedback directly shapes what I build next. It takes about 3 minutes —
+            no wrong answers, no judgment, just real input from real testers.
+          </p>
+          <div class="feedback-perks">
+            <span><i class="fas fa-clock" aria-hidden="true"></i> ~3 minutes</span>
+            <span><i class="fas fa-shield-halved" aria-hidden="true"></i> Anonymous option available</span>
+            <span><i class="fas fa-bolt" aria-hidden="true"></i> Direct impact on the roadmap</span>
+          </div>
+          <div class="feedback-actions">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScA0HkmzHDXHpVWkWG_55XeooPLFvEOT1O8TF6xWn-Rsxjszw/viewform?usp=publish-editor"
+               class="btn btn-primary btn-lg"
+               target="_blank"
+               rel="noopener noreferrer">
+              <i class="fas fa-pen-to-square" aria-hidden="true"></i>
+              Give Feedback
+            </a>
+            <a href="https://github.com/Maphuti-gif/BudgetWizer_Official_Website/releases/download/v1.1-beta/app-debug.apk"
+               class="btn btn-outline btn-lg download-apk"
+               download="BudgetWizer-v1.1-beta.apk">
+              <i class="fas fa-download" aria-hidden="true"></i>
+              Haven't tried it yet? Download APK
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
@@ -1467,7 +1687,7 @@
       <div class="footer-right">
         <div class="apk-badge">
           <i class="fas fa-circle-check" style="color: var(--emerald);" aria-hidden="true"></i>
-          v1.1 · APK ready
+          v1.1 Beta · APK ready
         </div>
         <div class="footer-links">
           <a href="mailto:maphutimoviousteffo@gmail.com" aria-label="Send an email">
@@ -1482,7 +1702,7 @@
             <i class="fab fa-github" aria-hidden="true"></i> GitHub
           </a>
         </div>
-        <p class="copyright">© 2026 BudgetWizer · All rights reserved.</p>
+        <p class="copyright">© 2025 BudgetWizer · All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -1553,7 +1773,16 @@
       });
 
       /* ============================================
-         DOWNLOAD APK — Force download behavior
+         ANALYTICS HELPER (GA4 ready — no-op if not configured)
+         ============================================ */
+      function trackEvent(eventName, params) {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', eventName, params || {});
+        }
+      }
+
+      /* ============================================
+         DOWNLOAD APK — Force download + analytics
          ============================================ */
       var toast = document.getElementById('toast');
       var toastMessage = document.getElementById('toast-message');
@@ -1578,72 +1807,79 @@
 
       downloadButtons.forEach(function (btn) {
         btn.addEventListener('click', function (e) {
-          // Prevent default navigation
           e.preventDefault();
 
           var url = this.getAttribute('href');
-          var filename = this.getAttribute('download') || 'BudgetWizer-v1.1.apk';
+          var filename = this.getAttribute('download') || 'BudgetWizer-v1.1-beta.apk';
 
-          // Visual feedback: downloading state
+          // Fire analytics event
+          trackEvent('apk_download', {
+            event_category: 'engagement',
+            event_label: 'BudgetWizer v1.1 Beta',
+            value: 1
+          });
+
+          // Visual feedback
           var originalHTML = this.innerHTML;
           this.classList.add('downloading');
           this.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Downloading…</span>';
 
           var self = this;
 
-          // Trigger download via fetch → blob → anchor
-          // This guarantees a download instead of navigation
-          fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache'
-          })
-          .then(function (response) {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.blob();
-          })
-          .then(function (blob) {
-            // Create a temporary object URL
-            var blobUrl = window.URL.createObjectURL(blob);
-            var tempLink = document.createElement('a');
-            tempLink.href = blobUrl;
-            tempLink.download = filename;
-            tempLink.style.display = 'none';
-            document.body.appendChild(tempLink);
-            tempLink.click();
-            document.body.removeChild(tempLink);
+          fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' })
+            .then(function (response) {
+              if (!response.ok) throw new Error('Network response was not ok');
+              return response.blob();
+            })
+            .then(function (blob) {
+              var blobUrl = window.URL.createObjectURL(blob);
+              var tempLink = document.createElement('a');
+              tempLink.href = blobUrl;
+              tempLink.download = filename;
+              tempLink.style.display = 'none';
+              document.body.appendChild(tempLink);
+              tempLink.click();
+              document.body.removeChild(tempLink);
 
-            // Revoke after a short delay
-            setTimeout(function () {
-              window.URL.revokeObjectURL(blobUrl);
-            }, 1000);
+              setTimeout(function () {
+                window.URL.revokeObjectURL(blobUrl);
+              }, 1000);
 
-            // Success feedback
-            self.classList.remove('downloading');
-            self.classList.add('downloaded');
-            self.innerHTML = '<i class="fas fa-circle-check"></i><span>Downloaded!</span>';
-            showToast('BudgetWizer APK downloaded successfully!', false);
+              self.classList.remove('downloading');
+              self.classList.add('downloaded');
+              self.innerHTML = '<i class="fas fa-circle-check"></i><span>Downloaded!</span>';
+              showToast('BudgetWizer beta downloaded successfully!', false);
 
-            // Reset button after a while
-            setTimeout(function () {
-              self.classList.remove('downloaded');
+              setTimeout(function () {
+                self.classList.remove('downloaded');
+                self.innerHTML = originalHTML;
+              }, 3500);
+            })
+            .catch(function (err) {
+              console.warn('Direct download failed, falling back to anchor:', err);
+              var fallbackLink = document.createElement('a');
+              fallbackLink.href = url;
+              fallbackLink.download = filename;
+              fallbackLink.style.display = 'none';
+              document.body.appendChild(fallbackLink);
+              fallbackLink.click();
+              document.body.removeChild(fallbackLink);
+
+              self.classList.remove('downloading');
               self.innerHTML = originalHTML;
-            }, 3500);
-          })
-          .catch(function (err) {
-            console.warn('Direct download failed, falling back to anchor:', err);
-            // Fallback: use a plain anchor with download attribute
-            var fallbackLink = document.createElement('a');
-            fallbackLink.href = url;
-            fallbackLink.download = filename;
-            fallbackLink.style.display = 'none';
-            document.body.appendChild(fallbackLink);
-            fallbackLink.click();
-            document.body.removeChild(fallbackLink);
+              showToast('Download started. Check your notifications.', false);
+            });
+        });
+      });
 
-            self.classList.remove('downloading');
-            self.innerHTML = originalHTML;
-            showToast('Download started. Check your notifications.', false);
+      /* ============================================
+         FEEDBACK LINK TRACKING (GA4 ready)
+         ============================================ */
+      document.querySelectorAll('a[href*="docs.google.com/forms"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          trackEvent('feedback_form_open', {
+            event_category: 'engagement',
+            event_label: 'Google Form'
           });
         });
       });
