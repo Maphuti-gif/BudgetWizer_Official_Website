@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BudgetWizer · Live Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #060B19;
+      color: #E5E9F0;
+      padding: 40px 20px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #00A3FF, #00E5A3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    h1 i { color: #00E5A3; -webkit-text-fill-color: #00E5A3; }
+    .sub { color: #6E7F9B; font-size: 0.9rem; margin-bottom: 36px; }
+    .live-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #00E5A3;
+      box-shadow: 0 0 10px #00E5A3;
+      margin-right: 6px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .refresh-btn {
+      background: linear-gradient(135deg, #00A3FF, #00E5A3);
+      color: #060B19;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .refresh-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 229, 163, 0.3); }
+    .refresh-btn:disabled { opacity: 0.6; cursor: wait; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: #0E172C;
+      border: 1px solid #1E2A44;
+      border-radius: 22px;
+      padding: 26px;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00A3FF, #00E5A3);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: rgba(0, 229, 163, 0.4); }
+    .card:hover::before { opacity: 1; }
+    .icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: rgba(0, 163, 255, 0.14);
+      border: 1px solid rgba(0, 163, 255, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00A3FF;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+    .label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      color: #6E7F9B;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .value {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .value.grad {
+      background: linear-gradient(135deg, #00A3FF, #00E5A3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .value small { font-size: 1rem; color: #6E7F9B; font-weight: 600; margin-left: 6px; }
+    h2 {
+      font-size: 1.15rem;
+      color: #ffffff;
+      margin: 40px 0 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 i { color: #00E5A3; font-size: 1rem; }
+    .panel {
+      background: #0E172C;
+      border-radius: 20px;
+      border: 1px solid #1E2A44;
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 0.87rem;
+      border-bottom: 1px solid #1A253B;
+    }
+    th {
+      color: #6E7F9B;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      background: #0A1122;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(0, 163, 255, 0.04); }
+    .pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(0, 229, 163, 0.14);
+      color: #00E5A3;
+      border: 1px solid rgba(0, 229, 163, 0.3);
+    }
+    .pill.download { background: rgba(0, 163, 255, 0.14); color: #00A3FF; border-color: rgba(0, 163, 255, 0.3); }
+    .pill.feedback { background: rgba(255, 179, 71, 0.14); color: #FFB347; border-color: rgba(255, 179, 71, 0.3); }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 0.78rem; color: #6E7F9B; }
+    .loading {
+      text-align: center;
+      padding: 80px 20px;
+      color: #6E7F9B;
+      font-size: 1rem;
+    }
+    .loading i { font-size: 2.5rem; color: #00E5A3; margin-bottom: 16px; display: block; }
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6E7F9B;
+    }
+    .empty i { font-size: 2.5rem; color: #00A3FF; opacity: 0.4; margin-bottom: 16px; display: block; }
+    .empty strong { display: block; color: #C0CCE0; font-size: 1rem; margin-bottom: 6px; font-weight: 600; }
+    .footer {
+      text-align: center;
+      color: #4A5A73;
+      font-size: 0.78rem;
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #1A253B;
+    }
+    @media (max-width: 640px) {
+      body { padding: 24px 14px; }
+      h1 { font-size: 1.4rem; }
+      .value { font-size: 1.9rem; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .card { padding: 18px; border-radius: 18px; }
+      th, td { padding: 11px 12px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1><i class="fas fa-chart-line"></i> BudgetWizer Dashboard</h1>
+      <button class="refresh-btn" id="refreshBtn" onclick="loadAll()">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+    </div>
+    <p class="sub"><span class="live-dot"></span><span id="updated">Loading data...</span> · Auto-refreshes every 30s</p>
+
+    <div id="loading" class="loading">
+      <i class="fas fa-spinner fa-spin"></i>
+      Fetching live data...
+    </div>
+
+    <div id="content" style="display: none;">
+      <div class="grid" id="statsGrid"></div>
+
+      <h2><i class="fas fa-bolt"></i> Recent Events (last 100)</h2>
+      <div class="panel" id="eventsPanel">
+        <table id="eventsTable">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Event</th>
+              <th>Page</th>
+              <th>Referrer</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h2><i class="fas fa-users"></i> Top Visitors (last 100 events)</h2>
+      <div class="panel" id="visitorsPanel">
+        <table id="visitorsTable">
+          <thead>
+            <tr>
+              <th>Visitor</th>
+              <th>Events</th>
+              <th>First Seen</th>
+              <th>Last Seen</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="footer">
+      BudgetWizer Analytics · Powered by Supabase · Private dashboard
+    </div>
+  </div>
+
+  <script>
+    // ============ CONFIG ============
+    const SUPABASE_URL = 'https://oqvatzdgxnuwxttqwls.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdmF0emRneG51d3h4dHRxd2xzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjAxNjYsImV4cCI6MjEwNDYzNjE2Nn0.TwZnzS-4aKTTeivQhSTxj5SAX03eRCmbw1G6kYVV6rA';
+
+    const headers = {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    };
+
+    let autoRefreshTimer = null;
+
+    async function loadAll() {
+      const btn = document.getElementById('refreshBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+
+      try {
+        // Fetch last 500 events
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/events?select=*&order=created_at.desc&limit=500`,
+          { headers }
+        );
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+
+        const events = await res.json();
+        render(events);
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+        document.getElementById('updated').textContent =
+          'Last updated: ' + new Date().toLocaleTimeString() + ' · ' + events.length + ' events loaded';
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById('loading').innerHTML = `
+          <i class="fas fa-exclamation-triangle" style="color:#FF6B6B;"></i>
+          <strong style="color:#FF6B6B;display:block;margin-bottom:8px;">Could not load data</strong>
+          <span style="color:#6E7F9B;font-size:0.85rem;">${err.message}</span><br><br>
+          <span style="color:#6E7F9B;font-size:0.8rem;">
+            Check that your events table exists, has the right columns,<br>
+            and allows anonymous reads (RLS policies).
+          </span>
+        `;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+      }
+    }
+
+    function render(events) {
+      renderStats(events);
+      renderEvents(events);
+      renderVisitors(events);
+    }
+
+    function renderStats(events) {
+      const now = Date.now();
+      const dayAgo = now - (24 * 60 * 60 * 1000);
+
+      const last24h = events.filter(e => new Date(e.created_at).getTime() > dayAgo);
+      const total = events.length;
+      const today = last24h.length;
+
+      const downloads = events.filter(e => e.event_name === 'apk_download').length;
+      const downloadsComplete = events.filter(e => e.event_name === 'apk_download_complete').length;
+      const feedbackOpens = events.filter(e => e.event_name === 'feedback_form_open').length;
+      const pageViews = events.filter(e => e.event_name === 'page_view').length;
+
+      const uniqueVisitors = new Set(events.map(e => e.visitor_id).filter(Boolean)).size;
+      const uniqueToday = new Set(last24h.map(e => e.visitor_id).filter(Boolean)).size;
+
+      document.getElementById('statsGrid').innerHTML = `
+        <div class="card">
+          <div class="icon"><i class="fas fa-download"></i></div>
+          <div class="label">APK Downloads</div>
+          <div class="value grad">${downloads}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-users"></i></div>
+          <div class="label">Unique Visitors</div>
+          <div class="value">${uniqueVisitors}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-eye"></i></div>
+          <div class="label">Page Views</div>
+          <div class="value">${pageViews}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-comment-dots"></i></div>
+          <div class="label">Feedback Opens</div>
+          <div class="value">${feedbackOpens}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-bolt"></i></div>
+          <div class="label">Last 24h Events</div>
+          <div class="value">${today}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-user-check"></i></div>
+          <div class="label">Visitors 24h</div>
+          <div class="value">${uniqueToday}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-check-circle"></i></div>
+          <div class="label">Completed DLs</div>
+          <div class="value">${downloadsComplete}</div>
+        </div>
+        <div class="card">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <div class="label">Total Events</div>
+          <div class="value">${total}</div>
+        </div>
+      `;
+    }
+
+    function renderEvents(events) {
+      const tbody = document.querySelector('#eventsTable tbody');
+
+      if (!events.length) {
+        tbody.innerHTML = `<tr><td colspan="4"><div class="empty">
+          <i class="fas fa-inbox"></i>
+          <strong>No events yet</strong>
+          Share your site link and watch events appear here.
+        </div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = events.slice(0, 100).map(e => {
+        const pillClass = e.event_name === 'apk_download' || e.event_name === 'apk_download_complete'
+          ? 'download'
+          : e.event_name.includes('feedback') ? 'feedback' : '';
+        return `
+          <tr>
+            <td class="mono">${new Date(e.created_at).toLocaleTimeString()}</td>
+            <td><span class="pill ${pillClass}">${e.event_name}</span></td>
+            <td>${e.page || '-'}</td>
+            <td style="font-size:0.78rem;color:#6E7F9B;">${(e.referrer || 'direct').substring(0, 45)}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderVisitors(events) {
+      const map = {};
+      events.forEach(e => {
+        const v = e.visitor_id || 'unknown';
+        if (!map[v]) map[v] = { count: 0, first: e.created_at, last: e.created_at };
+        map[v].count++;
+        if (e.created_at < map[v].first) map[v].first = e.created_at;
+        if (e.created_at > map[v].last) map[v].last = e.created_at;
+      });
+
+      const rows = Object.entries(map)
+        .sort((a, b) => b[1].count - a[1].count)
+        .slice(0, 20);
+
+      const tbody = document.querySelector('#visitorsTable tbody');
+
+      if (!rows.length) {
+        tbody.innerHTML = `<tr><td colspan="4"><div class="empty">
+          <i class="fas fa-user-slash"></i>
+          <strong>No visitors yet</strong>
+        </div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = rows.map(([id, d]) => `
+        <tr>
+          <td class="mono">${id}</td>
+          <td><strong>${d.count}</strong></td>
+          <td class="mono">${new Date(d.first).toLocaleTimeString()}</td>
+          <td class="mono">${new Date(d.last).toLocaleTimeString()}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Initial load
+    loadAll();
+
+    // Auto-refresh every 30s
+    autoRefreshTimer = setInterval(loadAll, 30000);
+
+    // Pause auto-refresh when tab is hidden (saves resources)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearInterval(autoRefreshTimer);
+      } else {
+        loadAll();
+        autoRefreshTimer = setInterval(loadAll, 30000);
+      }
+    });
+  </script>
+</body>
+</html>
