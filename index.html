@@ -13,6 +13,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- ============================================
+       GOOGLE ANALYTICS 4 (GA4)
+       ============================================ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-21DNPSCJ1E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-21DNPSCJ1E', {
+      'send_page_view': true
+    });
+  </script>
+
   <style>
     /* ============================================
        RESET & BASE
@@ -1655,7 +1669,7 @@
           </div>
           <div class="feedback-actions">
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScA0HkmzHDXHpVWkWG_55XeooPLFvEOT1O8TF6xWn-Rsxjszw/viewform?usp=publish-editor"
-               class="btn btn-primary btn-lg"
+               class="btn btn-primary btn-lg feedback-link"
                target="_blank"
                rel="noopener noreferrer">
               <i class="fas fa-pen-to-square" aria-hidden="true"></i>
@@ -1773,7 +1787,7 @@
       });
 
       /* ============================================
-         ANALYTICS HELPER (GA4 ready — no-op if not configured)
+         ANALYTICS HELPER (GA4)
          ============================================ */
       function trackEvent(eventName, params) {
         if (typeof window.gtag === 'function') {
@@ -1782,7 +1796,7 @@
       }
 
       /* ============================================
-         DOWNLOAD APK — Force download + analytics
+         DOWNLOAD APK — Force download + GA4 tracking
          ============================================ */
       var toast = document.getElementById('toast');
       var toastMessage = document.getElementById('toast-message');
@@ -1812,7 +1826,7 @@
           var url = this.getAttribute('href');
           var filename = this.getAttribute('download') || 'BudgetWizer-v1.1-beta.apk';
 
-          // Fire analytics event
+          // Fire GA4 event — this shows up in Realtime and Events reports
           trackEvent('apk_download', {
             event_category: 'engagement',
             event_label: 'BudgetWizer v1.1 Beta',
@@ -1850,6 +1864,12 @@
               self.innerHTML = '<i class="fas fa-circle-check"></i><span>Downloaded!</span>';
               showToast('BudgetWizer beta downloaded successfully!', false);
 
+              // Second GA4 event for completed download
+              trackEvent('apk_download_complete', {
+                event_category: 'engagement',
+                event_label: 'BudgetWizer v1.1 Beta'
+              });
+
               setTimeout(function () {
                 self.classList.remove('downloaded');
                 self.innerHTML = originalHTML;
@@ -1873,13 +1893,25 @@
       });
 
       /* ============================================
-         FEEDBACK LINK TRACKING (GA4 ready)
+         FEEDBACK LINK TRACKING (GA4)
          ============================================ */
-      document.querySelectorAll('a[href*="docs.google.com/forms"]').forEach(function (link) {
+      document.querySelectorAll('.feedback-link').forEach(function (link) {
         link.addEventListener('click', function () {
           trackEvent('feedback_form_open', {
             event_category: 'engagement',
             event_label: 'Google Form'
+          });
+        });
+      });
+
+      /* ============================================
+         BETA BANNER FEEDBACK LINK TRACKING
+         ============================================ */
+      document.querySelectorAll('a[href="#feedback"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          trackEvent('feedback_section_click', {
+            event_category: 'engagement',
+            event_label: 'Beta Banner'
           });
         });
       });
