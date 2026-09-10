@@ -126,7 +126,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .value small { font-size: 1rem; color: #6E7F9B; font-weight: 600; margin-left: 6px; }
     h2 {
       font-size: 1.15rem;
       color: #ffffff;
@@ -261,7 +260,7 @@
 
   <script>
     // ============ CONFIG ============
-    const SUPABASE_URL = 'https://oqvatzdgxnuwxttqwls.supabase.co';
+    const SUPABASE_URL = 'https://oqvatzdgxnuwxxttqwls.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdmF0emRneG51d3h4dHRxd2xzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjAxNjYsImV4cCI6MjEwNDYzNjE2Nn0.TwZnzS-4aKTTeivQhSTxj5SAX03eRCmbw1G6kYVV6rA';
 
     const headers = {
@@ -277,7 +276,6 @@
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
 
       try {
-        // Fetch last 500 events
         const res = await fetch(
           `${SUPABASE_URL}/rest/v1/events?select=*&order=created_at.desc&limit=500`,
           { headers }
@@ -437,13 +435,9 @@
       `).join('');
     }
 
-    // Initial load
     loadAll();
-
-    // Auto-refresh every 30s
     autoRefreshTimer = setInterval(loadAll, 30000);
 
-    // Pause auto-refresh when tab is hidden (saves resources)
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         clearInterval(autoRefreshTimer);

@@ -17,7 +17,6 @@
 
   <!-- ============================================
        GOOGLE ANALYTICS 4 (GA4)
-       Measurement ID: G-21DNPSCJ1E
        ============================================ -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-21DNPSCJ1E"></script>
   <script>
@@ -55,9 +54,6 @@
       min-height: 100vh;
     }
 
-    /* ============================================
-       DESIGN TOKENS
-       ============================================ */
     :root {
       --cyan: #00A3FF;
       --cyan-dark: #0082CC;
@@ -72,21 +68,13 @@
       --text-secondary: #A6B4CC;
       --text-muted: #6E7F9B;
       --gradient: linear-gradient(135deg, #00A3FF 0%, #00E5A3 100%);
-      --gradient-soft: linear-gradient(135deg, rgba(0, 163, 255, 0.15) 0%, rgba(0, 229, 163, 0.15) 100%);
       --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.45);
-      --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.6);
-      --shadow-glow: 0 0 32px rgba(0, 229, 163, 0.25);
-      --radius-sm: 12px;
       --radius-md: 18px;
       --radius-lg: 28px;
       --radius-xl: 40px;
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* ============================================
-       LAYOUT UTILITIES
-       ============================================ */
     .container {
       width: 100%;
       max-width: 1280px;
@@ -98,13 +86,8 @@
       .container { padding: 0 16px; }
     }
 
-    section {
-      position: relative;
-    }
+    section { position: relative; }
 
-    /* ============================================
-       ACCESSIBILITY
-       ============================================ */
     a:focus-visible,
     button:focus-visible {
       outline: 2px solid var(--emerald);
@@ -115,9 +98,7 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
       }
     }
 
@@ -135,23 +116,14 @@
       letter-spacing: 0.2px;
     }
 
-    .beta-banner strong {
-      color: var(--emerald);
-      font-weight: 800;
-    }
-
+    .beta-banner strong { color: var(--emerald); font-weight: 800; }
     .beta-banner a {
       color: var(--emerald);
       text-decoration: underline;
-      text-decoration-color: rgba(0, 229, 163, 0.5);
       text-underline-offset: 3px;
       transition: var(--transition);
     }
-
-    .beta-banner a:hover {
-      text-decoration-color: var(--emerald);
-      color: #ffffff;
-    }
+    .beta-banner a:hover { color: #ffffff; }
 
     /* ============================================
        NAVBAR
@@ -199,9 +171,7 @@
       transition: var(--transition);
     }
 
-    .logo:hover .logo-icon {
-      transform: rotate(-6deg) scale(1.05);
-    }
+    .logo:hover .logo-icon { transform: rotate(-6deg) scale(1.05); }
 
     .logo-text {
       font-size: 1.4rem;
@@ -218,11 +188,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
 
     .badge {
       font-size: 0.72rem;
@@ -240,8 +206,7 @@
     }
 
     .badge .dot {
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--emerald);
       box-shadow: 0 0 8px var(--emerald);
@@ -270,8 +235,6 @@
       border: none;
       transition: var(--transition);
       white-space: nowrap;
-      position: relative;
-      overflow: hidden;
       line-height: 1.2;
     }
 
@@ -284,10 +247,6 @@
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 14px 32px rgba(0, 229, 163, 0.45);
-    }
-
-    .btn-primary:active {
-      transform: translateY(0);
     }
 
     .btn-outline {
@@ -303,22 +262,10 @@
       color: var(--emerald);
     }
 
-    .btn-sm {
-      padding: 9px 18px;
-      font-size: 0.85rem;
-    }
+    .btn-sm { padding: 9px 18px; font-size: 0.85rem; }
+    .btn-lg { padding: 15px 34px; font-size: 1rem; }
 
-    .btn-lg {
-      padding: 15px 34px;
-      font-size: 1rem;
-    }
-
-    /* Download button state */
-    .btn.downloading {
-      pointer-events: none;
-      opacity: 0.85;
-    }
-
+    .btn.downloading { pointer-events: none; opacity: 0.85; }
     .btn.downloaded {
       background: linear-gradient(135deg, #00B37E 0%, #00E5A3 100%);
       color: #060B19;
@@ -369,7 +316,6 @@
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      position: relative;
     }
 
     .hero-desc {
@@ -397,11 +343,7 @@
       font-weight: 500;
     }
 
-    .hero-trust span {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-    }
+    .hero-trust span { display: inline-flex; align-items: center; gap: 7px; }
 
     /* ============================================
        PHONE MOCKUP
@@ -417,8 +359,7 @@
     .hero-visual::before {
       content: '';
       position: absolute;
-      width: 85%;
-      height: 85%;
+      width: 85%; height: 85%;
       background: radial-gradient(circle, rgba(0, 163, 255, 0.22) 0%, transparent 70%);
       border-radius: 50%;
       filter: blur(40px);
@@ -437,7 +378,7 @@
       background: var(--surface);
       border-radius: 46px;
       padding: 13px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(0, 229, 163, 0.28), 0 0 60px rgba(0, 229, 163, 0.12);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(0, 229, 163, 0.28);
       width: 100%;
       max-width: 310px;
       aspect-ratio: 9 / 19;
@@ -454,8 +395,7 @@
     }
 
     .mock-notch {
-      width: 90px;
-      height: 22px;
+      width: 90px; height: 22px;
       background: #060B19;
       border-radius: 0 0 14px 14px;
       margin: -13px auto 0;
@@ -475,11 +415,7 @@
       margin-top: -8px;
     }
 
-    .mock-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .mock-header { display: flex; justify-content: space-between; align-items: center; }
 
     .mock-label {
       font-size: 0.6rem;
@@ -493,7 +429,6 @@
       font-size: 1.25rem;
       font-weight: 800;
       color: #ffffff;
-      letter-spacing: -0.02em;
       margin-top: 2px;
     }
 
@@ -530,10 +465,7 @@
       font-weight: 500;
     }
 
-    .mock-row strong {
-      color: #ffffff;
-      font-weight: 600;
-    }
+    .mock-row strong { color: #ffffff; font-weight: 600; }
 
     .mock-bar {
       height: 7px;
@@ -575,7 +507,6 @@
     .mock-graph .bar {
       flex: 1;
       background: var(--gradient);
-      height: 30px;
       border-radius: 6px 6px 3px 3px;
       opacity: 0.85;
       animation: growUp 1.2s ease-out backwards;
@@ -603,11 +534,7 @@
     .mock-legend .up { color: var(--emerald); font-weight: 600; }
     .mock-legend .down { color: #FF6B6B; font-weight: 600; }
 
-    .mock-chips {
-      display: flex;
-      gap: 7px;
-      margin-top: 4px;
-    }
+    .mock-chips { display: flex; gap: 7px; margin-top: 4px; }
 
     .mock-chip {
       background: #1E2A44;
@@ -618,22 +545,14 @@
       font-size: 0.6rem;
       color: #A0B0CC;
       font-weight: 500;
-      transition: var(--transition);
     }
 
-    .mock-chip i {
-      display: block;
-      margin-bottom: 3px;
-      font-size: 0.85rem;
-    }
+    .mock-chip i { display: block; margin-bottom: 3px; font-size: 0.85rem; }
 
     /* ============================================
-       SECTION HEADERS
+       SECTIONS
        ============================================ */
-    .section-head {
-      margin-bottom: 52px;
-      max-width: 680px;
-    }
+    .section-head { margin-bottom: 52px; max-width: 680px; }
 
     .section-title {
       font-size: clamp(1.8rem, 3.5vw, 2.4rem);
@@ -657,12 +576,7 @@
       line-height: 1.7;
     }
 
-    /* ============================================
-       FEATURES GRID
-       ============================================ */
-    .features {
-      padding: 90px 0;
-    }
+    .features { padding: 90px 0; }
 
     .grid-3 {
       display: grid;
@@ -684,9 +598,7 @@
     .feature-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 2px;
       background: var(--gradient);
       opacity: 0;
@@ -699,13 +611,10 @@
       box-shadow: 0 20px 44px -14px rgba(0, 229, 163, 0.3);
     }
 
-    .feature-card:hover::before {
-      opacity: 1;
-    }
+    .feature-card:hover::before { opacity: 1; }
 
     .feature-icon {
-      width: 58px;
-      height: 58px;
+      width: 58px; height: 58px;
       border-radius: 18px;
       background: rgba(0, 163, 255, 0.12);
       display: flex;
@@ -730,7 +639,6 @@
       font-weight: 700;
       margin-bottom: 10px;
       color: #ffffff;
-      letter-spacing: -0.015em;
     }
 
     .feature-card p {
@@ -739,9 +647,7 @@
       line-height: 1.65;
     }
 
-    /* ============================================
-       AI BANNER
-       ============================================ */
+    /* AI BANNER */
     .ai-banner {
       background: linear-gradient(135deg, #0E172C 0%, #0A1428 100%);
       border-radius: var(--radius-xl);
@@ -752,21 +658,7 @@
       align-items: center;
       gap: 36px;
       box-shadow: 0 0 60px rgba(0, 229, 163, 0.07);
-      position: relative;
-      overflow: hidden;
       margin: 40px 0;
-    }
-
-    .ai-banner::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(0, 229, 163, 0.14) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
     }
 
     .ai-banner h2 {
@@ -774,17 +666,13 @@
       font-weight: 800;
       margin-bottom: 14px;
       color: #ffffff;
-      letter-spacing: -0.02em;
       display: flex;
       align-items: center;
       gap: 14px;
       flex-wrap: wrap;
     }
 
-    .ai-banner h2 i {
-      color: var(--emerald);
-      font-size: 1.7rem;
-    }
+    .ai-banner h2 i { color: var(--emerald); font-size: 1.7rem; }
 
     .ai-banner p {
       color: var(--text-secondary);
@@ -793,12 +681,7 @@
       font-size: 0.98rem;
     }
 
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 22px;
-    }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
 
     .chip {
       background: var(--surface-3);
@@ -821,19 +704,11 @@
       transform: translateY(-2px);
     }
 
-    .chip i {
-      font-size: 0.85rem;
-    }
+    .chip i { font-size: 0.85rem; }
 
-    .ai-banner .btn {
-      justify-self: end;
-      position: relative;
-      z-index: 1;
-    }
+    .ai-banner .btn { justify-self: end; }
 
-    /* ============================================
-       TECH STACK
-       ============================================ */
+    /* TECH STACK */
     .tech-stack {
       padding: 70px 0;
       background: linear-gradient(180deg, rgba(14, 23, 44, 0.55) 0%, transparent 100%);
@@ -875,14 +750,9 @@
       margin-bottom: 3px;
     }
 
-    .tech-item small {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
+    .tech-item small { font-size: 0.7rem; color: var(--text-muted); }
 
-    /* ============================================
-       BUILD INFO
-       ============================================ */
+    /* BUILD INFO */
     .build-info {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -920,12 +790,8 @@
       flex-shrink: 0;
     }
 
-    /* ============================================
-       FEEDBACK SECTION
-       ============================================ */
-    .feedback-section {
-      padding: 40px 0 60px;
-    }
+    /* FEEDBACK */
+    .feedback-section { padding: 40px 0 60px; }
 
     .feedback-card {
       background: linear-gradient(135deg, #0E172C 0%, #0A1428 100%);
@@ -933,45 +799,13 @@
       padding: 52px 48px;
       border: 1px solid rgba(0, 229, 163, 0.28);
       box-shadow: 0 0 60px rgba(0, 229, 163, 0.08);
-      position: relative;
-      overflow: hidden;
       text-align: center;
     }
 
-    .feedback-card::before {
-      content: '';
-      position: absolute;
-      top: -40%;
-      left: -10%;
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, rgba(0, 163, 255, 0.14) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .feedback-card::after {
-      content: '';
-      position: absolute;
-      bottom: -50%;
-      right: -10%;
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, rgba(0, 229, 163, 0.14) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .feedback-content {
-      position: relative;
-      z-index: 1;
-      max-width: 720px;
-      margin: 0 auto;
-    }
+    .feedback-content { max-width: 720px; margin: 0 auto; }
 
     .feedback-icon {
-      width: 68px;
-      height: 68px;
+      width: 68px; height: 68px;
       border-radius: 22px;
       background: rgba(0, 229, 163, 0.14);
       border: 1px solid rgba(0, 229, 163, 0.35);
@@ -987,7 +821,6 @@
     .feedback-title {
       font-size: clamp(1.5rem, 3vw, 2rem);
       font-weight: 800;
-      letter-spacing: -0.02em;
       color: #ffffff;
       margin-bottom: 16px;
       line-height: 1.25;
@@ -1018,15 +851,8 @@
       font-weight: 500;
     }
 
-    .feedback-perks span {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .feedback-perks i {
-      color: var(--emerald);
-    }
+    .feedback-perks span { display: inline-flex; align-items: center; gap: 7px; }
+    .feedback-perks i { color: var(--emerald); }
 
     .feedback-actions {
       display: flex;
@@ -1035,9 +861,7 @@
       justify-content: center;
     }
 
-    /* ============================================
-       FOOTER
-       ============================================ */
+    /* FOOTER */
     .footer {
       border-top: 1px solid #16213A;
       padding: 48px 0 36px;
@@ -1097,35 +921,20 @@
       font-weight: 500;
     }
 
-    .footer-links a:hover {
-      color: var(--emerald);
-      transform: translateY(-2px);
-    }
+    .footer-links a:hover { color: var(--emerald); transform: translateY(-2px); }
 
-    .copyright {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 6px;
-    }
+    .copyright { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
 
-    /* ============================================
-       SCROLL REVEAL ANIMATION
-       ============================================ */
+    /* REVEAL */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.7s ease, transform 0.7s ease;
-      will-change: opacity, transform;
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ============================================
-       TOAST NOTIFICATION
-       ============================================ */
+    /* TOAST */
     .toast {
       position: fixed;
       bottom: 28px;
@@ -1146,17 +955,10 @@
       pointer-events: none;
     }
 
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast i { font-size: 1.1rem; }
 
-    .toast i {
-      font-size: 1.1rem;
-    }
-
-    /* ============================================
-       RESPONSIVE BREAKPOINTS
-       ============================================ */
+    /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero {
         grid-template-columns: 1fr;
@@ -1165,30 +967,12 @@
         text-align: center;
       }
 
-      .hero-slogan {
-        justify-content: center;
-      }
-
-      .hero-desc {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-actions {
-        justify-content: center;
-      }
-
-      .hero-trust {
-        justify-content: center;
-      }
-
-      .hero-visual {
-        order: -1;
-      }
-
-      .phone-mock {
-        max-width: 280px;
-      }
+      .hero-slogan { justify-content: center; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-trust { justify-content: center; }
+      .hero-visual { order: -1; }
+      .phone-mock { max-width: 280px; }
 
       .ai-banner {
         grid-template-columns: 1fr;
@@ -1196,97 +980,29 @@
         padding: 40px 32px;
       }
 
-      .ai-banner .btn {
-        justify-self: start;
-      }
+      .ai-banner .btn { justify-self: start; }
 
-      .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-
-      .footer-right {
-        align-items: flex-start;
-      }
-
-      .footer-links {
-        justify-content: flex-start;
-      }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-right { align-items: flex-start; }
+      .footer-links { justify-content: flex-start; }
     }
 
     @media (max-width: 720px) {
-      .navbar {
-        padding: 12px 0;
-      }
-
-      .logo-icon {
-        width: 38px;
-        height: 38px;
-        font-size: 20px;
-        border-radius: 11px;
-      }
-
-      .logo-text {
-        font-size: 1.2rem;
-      }
-
-      .badge {
-        display: none;
-      }
-
-      .nav-right .btn-outline {
-        padding: 8px 16px;
-        font-size: 0.82rem;
-      }
-
-      .hero-title {
-        font-size: clamp(1.9rem, 8vw, 2.6rem);
-      }
-
-      .hero-slogan {
-        letter-spacing: 4px;
-        font-size: 0.72rem;
-      }
-
-      .hero-slogan::before {
-        width: 20px;
-      }
-
-      .section-head {
-        margin-bottom: 40px;
-      }
-
-      .features {
-        padding: 64px 0;
-      }
-
-      .ai-banner {
-        padding: 32px 24px;
-        border-radius: 28px;
-      }
-
-      .build-info {
-        padding: 26px 22px;
-        border-radius: 22px;
-        gap: 22px;
-      }
-
-      .feedback-card {
-        padding: 40px 26px;
-        border-radius: 28px;
-      }
-
-      .feedback-icon {
-        width: 58px;
-        height: 58px;
-        font-size: 24px;
-        border-radius: 18px;
-      }
-
-      .footer {
-        padding: 40px 0 30px;
-      }
-
+      .navbar { padding: 12px 0; }
+      .logo-icon { width: 38px; height: 38px; font-size: 20px; border-radius: 11px; }
+      .logo-text { font-size: 1.2rem; }
+      .badge { display: none; }
+      .nav-right .btn-outline { padding: 8px 16px; font-size: 0.82rem; }
+      .hero-title { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+      .hero-slogan { letter-spacing: 4px; font-size: 0.72rem; }
+      .hero-slogan::before { width: 20px; }
+      .section-head { margin-bottom: 40px; }
+      .features { padding: 64px 0; }
+      .ai-banner { padding: 32px 24px; border-radius: 28px; }
+      .build-info { padding: 26px 22px; border-radius: 22px; gap: 22px; }
+      .feedback-card { padding: 40px 26px; border-radius: 28px; }
+      .feedback-icon { width: 58px; height: 58px; font-size: 24px; border-radius: 18px; }
+      .footer { padding: 40px 0 30px; }
       .toast {
         bottom: 20px;
         padding: 12px 22px;
@@ -1295,127 +1011,40 @@
         max-width: 400px;
         justify-content: center;
       }
-
-      .beta-banner {
-        font-size: 0.78rem;
-        padding: 8px 12px;
-      }
+      .beta-banner { font-size: 0.78rem; padding: 8px 12px; }
     }
 
     @media (max-width: 480px) {
-      .container {
-        padding: 0 16px;
-      }
-
-      .hero {
-        padding: 36px 0 28px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-
-      .hero-trust {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-      }
-
-      .phone-mock {
-        max-width: 250px;
-      }
-
-      .grid-3 {
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
-
-      .feature-card {
-        padding: 28px 22px;
-        border-radius: 22px;
-      }
-
-      .tech-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-
-      .tech-item {
-        padding: 18px 10px;
-      }
-
-      .tech-item i {
-        font-size: 22px;
-      }
-
-      .tech-item span {
-        font-size: 0.8rem;
-      }
-
-      .build-info {
-        grid-template-columns: 1fr;
-      }
-
-      .chip-group {
-        gap: 7px;
-      }
-
-      .chip {
-        font-size: 0.76rem;
-        padding: 7px 13px;
-      }
-
-      .feedback-actions {
-        flex-direction: column;
-      }
-
-      .feedback-actions .btn {
-        width: 100%;
-      }
-
-      .feedback-perks {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .footer-links {
-        gap: 14px;
-      }
-
-      .footer-links a {
-        font-size: 0.84rem;
-      }
+      .container { padding: 0 16px; }
+      .hero { padding: 36px 0 28px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { width: 100%; }
+      .hero-trust { flex-direction: column; gap: 10px; align-items: center; }
+      .phone-mock { max-width: 250px; }
+      .grid-3 { grid-template-columns: 1fr; gap: 18px; }
+      .feature-card { padding: 28px 22px; border-radius: 22px; }
+      .tech-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .tech-item { padding: 18px 10px; }
+      .tech-item i { font-size: 22px; }
+      .tech-item span { font-size: 0.8rem; }
+      .build-info { grid-template-columns: 1fr; }
+      .chip-group { gap: 7px; }
+      .chip { font-size: 0.76rem; padding: 7px 13px; }
+      .feedback-actions { flex-direction: column; }
+      .feedback-actions .btn { width: 100%; }
+      .feedback-perks { flex-direction: column; gap: 10px; }
+      .footer-links { gap: 14px; }
+      .footer-links a { font-size: 0.84rem; }
     }
 
     @media (max-width: 360px) {
-      .logo-text {
-        display: none;
-      }
-
-      .hero-slogan {
-        letter-spacing: 3px;
-        font-size: 0.68rem;
-      }
+      .logo-text { display: none; }
+      .hero-slogan { letter-spacing: 3px; font-size: 0.68rem; }
     }
 
-    /* ============================================
-       PRINT STYLES
-       ============================================ */
     @media print {
-      .navbar, .btn, .hero-visual, .ai-banner .btn, .toast, .beta-banner {
-        display: none;
-      }
-
-      body {
-        background: #fff;
-        color: #000;
-      }
-
+      .navbar, .btn, .hero-visual, .ai-banner .btn, .toast, .beta-banner { display: none; }
+      body { background: #fff; color: #000; }
       .feature-card, .tech-item, .build-info, .feedback-card {
         border: 1px solid #ccc;
         background: #fff;
@@ -1425,12 +1054,10 @@
 </head>
 <body>
 
-  <!-- ============ BETA BANNER ============ -->
   <div class="beta-banner">
     🚀 <strong>v1.1 Beta is live!</strong> Help shape BudgetWizer — <a href="#feedback">share your feedback</a> after testing.
   </div>
 
-  <!-- ============ NAVBAR ============ -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="container nav-flex">
       <a href="#" class="logo" aria-label="BudgetWizer home">
@@ -1450,7 +1077,6 @@
     </div>
   </nav>
 
-  <!-- ============ HERO ============ -->
   <header class="hero container">
     <div class="hero-content reveal">
       <div class="hero-slogan">PLAN • TRACK • GROW</div>
@@ -1492,56 +1118,37 @@
             </div>
             <div class="mock-tag">+12.3%</div>
           </div>
-
           <div class="mock-card">
             <div class="mock-row">
               <span>Monthly Budget</span>
               <strong>R1,820 / R2,500</strong>
             </div>
-            <div class="mock-bar">
-              <div class="mock-fill"></div>
-            </div>
+            <div class="mock-bar"><div class="mock-fill"></div></div>
             <div class="mock-sub">
               <span>Spent R1,820</span>
               <span>Remaining R680</span>
             </div>
           </div>
-
           <div class="mock-card">
             <div class="mock-legend">
               <span class="up"><i class="fas fa-arrow-up" aria-hidden="true"></i> Income</span>
               <span class="down"><i class="fas fa-arrow-down" aria-hidden="true"></i> Expense</span>
             </div>
             <div class="mock-graph">
-              <div class="bar"></div>
-              <div class="bar"></div>
-              <div class="bar"></div>
-              <div class="bar"></div>
-              <div class="bar"></div>
-              <div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
             </div>
           </div>
-
           <div class="mock-chips">
-            <div class="mock-chip">
-              <i class="fas fa-utensils" style="color: var(--cyan);" aria-hidden="true"></i>
-              Food
-            </div>
-            <div class="mock-chip">
-              <i class="fas fa-house" style="color: var(--emerald);" aria-hidden="true"></i>
-              Housing
-            </div>
-            <div class="mock-chip">
-              <i class="fas fa-car" style="color: #FFB347;" aria-hidden="true"></i>
-              Transport
-            </div>
+            <div class="mock-chip"><i class="fas fa-utensils" style="color: var(--cyan);" aria-hidden="true"></i> Food</div>
+            <div class="mock-chip"><i class="fas fa-house" style="color: var(--emerald);" aria-hidden="true"></i> Housing</div>
+            <div class="mock-chip"><i class="fas fa-car" style="color: #FFB347;" aria-hidden="true"></i> Transport</div>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ============ FEATURES ============ -->
   <section class="features container" id="features">
     <div class="section-head reveal">
       <h2 class="section-title">Everything you need to <span class="grad">grow</span>.</h2>
@@ -1556,31 +1163,26 @@
         <h3>Smart Dashboard</h3>
         <p>Net savings hero card, monthly budget bar with color-coded warnings, and a quick preview of your recent transactions.</p>
       </article>
-
       <article class="feature-card reveal">
         <div class="feature-icon"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></div>
         <h3>Transaction Manager</h3>
         <p>Instant search, filter chips by category or type, and a polished bottom sheet for adding or editing income &amp; expenses.</p>
       </article>
-
       <article class="feature-card reveal">
         <div class="feature-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
         <h3>Analytics &amp; Growth</h3>
         <p>Futuristic glowing line graphs, category donut chart, and a compound interest calculator with AI investment tips.</p>
       </article>
-
       <article class="feature-card reveal">
         <div class="feature-icon"><i class="fas fa-wallet" aria-hidden="true"></i></div>
         <h3>Budget Planner</h3>
         <p>Set overall and per-category limits. Live progress bars with remaining amounts and over-budget alerts.</p>
       </article>
-
       <article class="feature-card reveal">
         <div class="feature-icon"><i class="fas fa-robot" aria-hidden="true"></i></div>
         <h3>AI Financial Advisor</h3>
         <p>Personalized coaching using your actual data. Quick action chips and smart 50/30/20 budget recommendations.</p>
       </article>
-
       <article class="feature-card reveal">
         <div class="feature-icon"><i class="fas fa-lock" aria-hidden="true"></i></div>
         <h3>Offline &amp; Private</h3>
@@ -1589,7 +1191,6 @@
     </div>
   </section>
 
-  <!-- ============ AI BANNER ============ -->
   <div class="container">
     <div class="ai-banner reveal">
       <div>
@@ -1611,7 +1212,6 @@
     </div>
   </div>
 
-  <!-- ============ TECH STACK ============ -->
   <section class="tech-stack">
     <div class="container">
       <div class="section-head reveal">
@@ -1629,7 +1229,6 @@
     </div>
   </section>
 
-  <!-- ============ BUILD INFO ============ -->
   <div class="container">
     <div class="build-info reveal">
       <div class="build-item">
@@ -1651,7 +1250,6 @@
     </div>
   </div>
 
-  <!-- ============ FEEDBACK SECTION ============ -->
   <section class="feedback-section" id="feedback">
     <div class="container">
       <div class="feedback-card reveal">
@@ -1689,7 +1287,6 @@
     </div>
   </section>
 
-  <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-brand">
@@ -1699,7 +1296,6 @@
         </div>
         <p>PLAN • TRACK • GROW. Your offline-first finance companion — built with care by Maphuti Movious Teffo.</p>
       </div>
-
       <div class="footer-right">
         <div class="apk-badge">
           <i class="fas fa-circle-check" style="color: var(--emerald);" aria-hidden="true"></i>
@@ -1723,7 +1319,6 @@
     </div>
   </footer>
 
-  <!-- ============ TOAST ============ -->
   <div class="toast" id="toast" role="status" aria-live="polite">
     <i class="fas fa-circle-check" aria-hidden="true"></i>
     <span id="toast-message">Download starting…</span>
@@ -1731,18 +1326,14 @@
 
   <!-- ============================================
        CUSTOM ANALYTICS — SUPABASE
-       Sends events to your own database in parallel with GA4
        ============================================ -->
   <script>
     (function () {
       'use strict';
 
-      // ---- CONFIG ----
-      var SUPABASE_URL = 'https://oqvatzdgxnuwxttqwls.supabase.co';
+      var SUPABASE_URL = 'https://oqvatzdgxnuwxxttqwls.supabase.co';
       var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdmF0emRneG51d3h4dHRxd2xzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjAxNjYsImV4cCI6MjEwNDYzNjE2Nn0.TwZnzS-4aKTTeivQhSTxj5SAX03eRCmbw1G6kYVV6rA';
-      // ----------------
 
-      // Generate or retrieve a stable visitor ID (per browser)
       function getVisitorId() {
         try {
           var id = localStorage.getItem('bw_visitor_id');
@@ -1756,7 +1347,6 @@
         }
       }
 
-      // Send event to Supabase
       function sendEvent(eventName, extra) {
         var payload = {
           event_name: eventName,
@@ -1767,9 +1357,7 @@
         };
 
         if (extra) {
-          Object.keys(extra).forEach(function (k) {
-            payload[k] = extra[k];
-          });
+          Object.keys(extra).forEach(function (k) { payload[k] = extra[k]; });
         }
 
         fetch(SUPABASE_URL + '/rest/v1/events', {
@@ -1783,45 +1371,27 @@
           body: JSON.stringify(payload),
           keepalive: true
         }).catch(function (err) {
-          // Silent fail — never break the page
           console.warn('Custom analytics error:', err);
         });
       }
 
-      // Expose globally for reuse
       window.bwTrack = sendEvent;
 
-      // Fire page view
       sendEvent('page_view');
 
-      // Auto-hook download buttons
       document.addEventListener('click', function (e) {
-        var target = e.target.closest('.download-apk');
-        if (target) {
-          sendEvent('apk_download');
-        }
-
-        var feedback = e.target.closest('.feedback-link');
-        if (feedback) {
-          sendEvent('feedback_form_open');
-        }
-
-        var banner = e.target.closest('a[href="#feedback"]');
-        if (banner) {
-          sendEvent('feedback_section_click');
-        }
+        if (e.target.closest('.download-apk')) sendEvent('apk_download');
+        if (e.target.closest('.feedback-link')) sendEvent('feedback_form_open');
+        if (e.target.closest('a[href="#feedback"]')) sendEvent('feedback_section_click');
       });
     })();
   </script>
 
-  <!-- ============ SCRIPTS ============ -->
+  <!-- ============ MAIN SCRIPTS ============ -->
   <script>
     (function () {
       'use strict';
 
-      /* ============================================
-         SCROLL REVEAL (IntersectionObserver)
-         ============================================ */
       var revealElements = document.querySelectorAll('.reveal');
 
       if ('IntersectionObserver' in window && revealElements.length) {
@@ -1832,10 +1402,7 @@
               observer.unobserve(entry.target);
             }
           });
-        }, {
-          threshold: 0.12,
-          rootMargin: '0px 0px -40px 0px'
-        });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
         revealElements.forEach(function (el, index) {
           el.style.transitionDelay = (index % 3) * 60 + 'ms';
@@ -1845,22 +1412,14 @@
         revealElements.forEach(function (el) { el.classList.add('visible'); });
       }
 
-      /* ============================================
-         NAVBAR SHADOW ON SCROLL
-         ============================================ */
       var navbar = document.querySelector('.navbar');
       window.addEventListener('scroll', function () {
         if (!navbar) return;
-        if (window.pageYOffset > 20) {
-          navbar.style.boxShadow = '0 8px 28px rgba(0,0,0,0.45)';
-        } else {
-          navbar.style.boxShadow = 'none';
-        }
+        navbar.style.boxShadow = window.pageYOffset > 20
+          ? '0 8px 28px rgba(0,0,0,0.45)'
+          : 'none';
       }, { passive: true });
 
-      /* ============================================
-         SMOOTH ANCHOR SCROLLING (Fallback)
-         ============================================ */
       document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {
           var targetId = this.getAttribute('href');
@@ -1873,18 +1432,12 @@
         });
       });
 
-      /* ============================================
-         ANALYTICS HELPER (GA4)
-         ============================================ */
       function trackEvent(eventName, params) {
         if (typeof window.gtag === 'function') {
           window.gtag('event', eventName, params || {});
         }
       }
 
-      /* ============================================
-         DOWNLOAD APK — Force download + GA4 tracking
-         ============================================ */
       var toast = document.getElementById('toast');
       var toastMessage = document.getElementById('toast-message');
       var toastTimer;
@@ -1892,11 +1445,9 @@
       function showToast(message, isError) {
         if (!toast || !toastMessage) return;
         toastMessage.textContent = message;
-        if (isError) {
-          toast.style.background = 'linear-gradient(135deg, #FF6B6B, #FF8E53)';
-        } else {
-          toast.style.background = 'linear-gradient(135deg, #00B37E, #00E5A3)';
-        }
+        toast.style.background = isError
+          ? 'linear-gradient(135deg, #FF6B6B, #FF8E53)'
+          : 'linear-gradient(135deg, #00B37E, #00E5A3)';
         toast.classList.add('show');
         clearTimeout(toastTimer);
         toastTimer = setTimeout(function () {
@@ -1904,23 +1455,19 @@
         }, 4000);
       }
 
-      var downloadButtons = document.querySelectorAll('.download-apk');
-
-      downloadButtons.forEach(function (btn) {
+      document.querySelectorAll('.download-apk').forEach(function (btn) {
         btn.addEventListener('click', function (e) {
           e.preventDefault();
 
           var url = this.getAttribute('href');
           var filename = this.getAttribute('download') || 'BudgetWizer-v1.1-beta.apk';
 
-          // Fire GA4 event
           trackEvent('apk_download', {
             event_category: 'engagement',
             event_label: 'BudgetWizer v1.1 Beta',
             value: 1
           });
 
-          // Visual feedback
           var originalHTML = this.innerHTML;
           this.classList.add('downloading');
           this.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Downloading…</span>';
@@ -1956,7 +1503,6 @@
                 event_label: 'BudgetWizer v1.1 Beta'
               });
 
-              // Also log to Supabase
               if (typeof window.bwTrack === 'function') {
                 window.bwTrack('apk_download_complete');
               }
@@ -1967,7 +1513,7 @@
               }, 3500);
             })
             .catch(function (err) {
-              console.warn('Direct download failed, falling back to anchor:', err);
+              console.warn('Direct download failed:', err);
               var fallbackLink = document.createElement('a');
               fallbackLink.href = url;
               fallbackLink.download = filename;
@@ -1983,9 +1529,6 @@
         });
       });
 
-      /* ============================================
-         FEEDBACK LINK TRACKING (GA4)
-         ============================================ */
       document.querySelectorAll('.feedback-link').forEach(function (link) {
         link.addEventListener('click', function () {
           trackEvent('feedback_form_open', {
@@ -1995,9 +1538,6 @@
         });
       });
 
-      /* ============================================
-         BETA BANNER FEEDBACK LINK TRACKING
-         ============================================ */
       document.querySelectorAll('a[href="#feedback"]').forEach(function (link) {
         link.addEventListener('click', function () {
           trackEvent('feedback_section_click', {
