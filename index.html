@@ -851,7 +851,6 @@
         <span class="badge"><span class="dot"></span> v1.1 Beta</span>
         <a href="https://github.com/Maphuti-gif/BudgetWizer_Official_Website/releases/download/v1.1-beta/app-debug.apk"
            class="btn btn-outline btn-sm download-apk"
-           download="BudgetWizer-v1.1-beta.apk"
            aria-label="Download the BudgetWizer beta APK">
           <i class="fas fa-download" aria-hidden="true"></i>
           <span>Download APK</span>
@@ -873,8 +872,7 @@
       </p>
       <div class="hero-actions">
         <a href="https://github.com/Maphuti-gif/BudgetWizer_Official_Website/releases/download/v1.1-beta/app-debug.apk"
-           class="btn btn-primary btn-lg download-apk"
-           download="BudgetWizer-v1.1-beta.apk">
+           class="btn btn-primary btn-lg download-apk">
           <i class="fas fa-download" aria-hidden="true"></i>
           Download v1.1 Beta
         </a>
@@ -987,8 +985,7 @@
         </div>
       </div>
       <a href="https://github.com/Maphuti-gif/BudgetWizer_Official_Website/releases/download/v1.1-beta/app-debug.apk"
-         class="btn btn-primary btn-lg download-apk"
-         download="BudgetWizer-v1.1-beta.apk">
+         class="btn btn-primary btn-lg download-apk">
         <i class="fas fa-download" aria-hidden="true"></i>
         Get the Beta
       </a>
@@ -1059,8 +1056,7 @@
               Give Feedback
             </a>
             <a href="https://github.com/Maphuti-gif/BudgetWizer_Official_Website/releases/download/v1.1-beta/app-debug.apk"
-               class="btn btn-outline btn-lg download-apk"
-               download="BudgetWizer-v1.1-beta.apk">
+               class="btn btn-outline btn-lg download-apk">
               <i class="fas fa-download" aria-hidden="true"></i>
               Haven't tried it yet? Download APK
             </a>
@@ -1108,7 +1104,7 @@
   </div>
 
   <!-- ============================================
-       CUSTOM ANALYTICS — SUPABASE (FIXED)
+       CUSTOM ANALYTICS — SUPABASE
        ============================================ -->
   <script>
     (function () {
@@ -1118,42 +1114,28 @@
       var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdmF0emRneG51d3h4dHRxd2xzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjAxNjYsImV4cCI6MjEwNDYzNjE2Nn0.TwZnzS-4aKTTeivQhSTxj5SAX03eRCmbw1G6kYVV6rA';
 
       // ============================================
-      // VISITOR ID — stable per browser/device
-      // Uses: localStorage (persists across sessions)
-      // Fallback: sessionStorage (per tab session)
-      // Fallback: generated + cookie
+      // VISITOR ID — stable per device
       // ============================================
       function getVisitorId() {
         var KEY = 'bw_visitor_id';
-
-        // 1. Try localStorage (survives browser restarts)
         try {
           var id = localStorage.getItem(KEY);
           if (id) return id;
-
-          // Generate new ID
           id = 'v_' + Date.now().toString(36) + '_' +
                Math.random().toString(36).substring(2, 10) +
                Math.random().toString(36).substring(2, 6);
           localStorage.setItem(KEY, id);
-
-          // Also set a cookie as backup (1 year)
           try {
             document.cookie = KEY + '=' + id + ';max-age=' + (365*24*60*60) + ';path=/;SameSite=Lax';
           } catch (e) {}
-
           return id;
-        } catch (e) {
-          // localStorage blocked (private mode, etc.)
-        }
+        } catch (e) {}
 
-        // 2. Try cookie
         try {
           var match = document.cookie.match(new RegExp('(^| )' + KEY + '=([^;]+)'));
           if (match && match[2]) return match[2];
         } catch (e) {}
 
-        // 3. Fallback: session-only ID (will not persist)
         try {
           var sid = sessionStorage.getItem(KEY);
           if (sid) return sid;
@@ -1162,12 +1144,11 @@
           return sid;
         } catch (e) {}
 
-        // 4. Absolute fallback
         return 'anon_' + Math.random().toString(36).substring(2, 12);
       }
 
       // ============================================
-      // SEND EVENT — reliable, deduplicates per session
+      // SEND EVENT
       // ============================================
       function sendEvent(eventName, extra) {
         var payload = {
@@ -1182,7 +1163,6 @@
           Object.keys(extra).forEach(function (k) { payload[k] = extra[k]; });
         }
 
-        // Use fetch with keepalive so it completes even if page navigates
         fetch(SUPABASE_URL + '/rest/v1/events', {
           method: 'POST',
           headers: {
@@ -1198,37 +1178,26 @@
         });
       }
 
-      // Expose globally
       window.bwTrack = sendEvent;
 
       // ============================================
-      // AUTO-TRACK: page view on load
+      // AUTO-TRACK (capture phase — fires before any preventDefault)
       // ============================================
       sendEvent('page_view');
 
-      // ============================================
-      // AUTO-TRACK: delegated click listener
-      // Fires BEFORE the download handler, so it never gets skipped
-      // ============================================
       document.addEventListener('click', function (e) {
-        var dl = e.target.closest('.download-apk');
-        if (dl) {
-          // Fire event immediately — do not wait for the download handler
+        if (e.target.closest('.download-apk')) {
           sendEvent('apk_download');
           return;
         }
-
-        var fb = e.target.closest('.feedback-link');
-        if (fb) {
+        if (e.target.closest('.feedback-link')) {
           sendEvent('feedback_form_open');
           return;
         }
-
-        var banner = e.target.closest('a[href="#feedback"]');
-        if (banner) {
+        if (e.target.closest('a[href="#feedback"]')) {
           sendEvent('feedback_section_click');
         }
-      }, true); // ← capture phase ensures this runs FIRST
+      }, true);
 
     })();
   </script>
@@ -1302,76 +1271,53 @@
       }
 
       // ============================================
-      // DOWNLOAD HANDLER — fires download + completes event
+      // DOWNLOAD HANDLER — NATIVE BROWSER DOWNLOAD
+      // Removed fetch/blob because it fails on mobile.
+      // The <a download> attribute handles everything natively now.
       // ============================================
       document.querySelectorAll('.download-apk').forEach(function (btn) {
         btn.addEventListener('click', function (e) {
-          e.preventDefault();
-
           var url = this.getAttribute('href');
-          var filename = this.getAttribute('download') || 'BudgetWizer-v1.1-beta.apk';
 
-          // GA4 event
+          // Fire GA4 event
           trackEvent('apk_download', {
             event_category: 'engagement',
             event_label: 'BudgetWizer v1.1 Beta',
             value: 1
           });
 
+          // Fire Supabase complete event after a short delay
+          // (browser starts download immediately after this click)
+          setTimeout(function () {
+            trackEvent('apk_download_complete', {
+              event_category: 'engagement',
+              event_label: 'BudgetWizer v1.1 Beta'
+            });
+            if (typeof window.bwTrack === 'function') {
+              window.bwTrack('apk_download_complete');
+            }
+          }, 1500);
+
+          // Visual feedback (does NOT block the native download)
           var originalHTML = this.innerHTML;
+          var self = this;
           this.classList.add('downloading');
           this.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Downloading…</span>';
-          var self = this;
 
-          fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' })
-            .then(function (response) {
-              if (!response.ok) throw new Error('Network response was not ok');
-              return response.blob();
-            })
-            .then(function (blob) {
-              var blobUrl = window.URL.createObjectURL(blob);
-              var tempLink = document.createElement('a');
-              tempLink.href = blobUrl;
-              tempLink.download = filename;
-              tempLink.style.display = 'none';
-              document.body.appendChild(tempLink);
-              tempLink.click();
-              document.body.removeChild(tempLink);
+          setTimeout(function () {
+            self.classList.remove('downloading');
+            self.classList.add('downloaded');
+            self.innerHTML = '<i class="fas fa-circle-check"></i><span>Downloaded!</span>';
+            showToast('BudgetWizer beta downloaded successfully!', false);
 
-              setTimeout(function () { window.URL.revokeObjectURL(blobUrl); }, 1000);
-
-              self.classList.remove('downloading');
-              self.classList.add('downloaded');
-              self.innerHTML = '<i class="fas fa-circle-check"></i><span>Downloaded!</span>';
-              showToast('BudgetWizer beta downloaded successfully!', false);
-
-              trackEvent('apk_download_complete', {
-                event_category: 'engagement',
-                event_label: 'BudgetWizer v1.1 Beta'
-              });
-              if (typeof window.bwTrack === 'function') {
-                window.bwTrack('apk_download_complete');
-              }
-
-              setTimeout(function () {
-                self.classList.remove('downloaded');
-                self.innerHTML = originalHTML;
-              }, 3500);
-            })
-            .catch(function (err) {
-              console.warn('Fetch download failed, using anchor fallback:', err);
-              var fallbackLink = document.createElement('a');
-              fallbackLink.href = url;
-              fallbackLink.download = filename;
-              fallbackLink.style.display = 'none';
-              document.body.appendChild(fallbackLink);
-              fallbackLink.click();
-              document.body.removeChild(fallbackLink);
-
-              self.classList.remove('downloading');
+            setTimeout(function () {
+              self.classList.remove('downloaded');
               self.innerHTML = originalHTML;
-              showToast('Download started. Check your notifications.', false);
-            });
+            }, 3500);
+          }, 1500);
+
+          // DO NOT call e.preventDefault()
+          // Let the browser's native download handle the <a download> tag
         });
       });
 
